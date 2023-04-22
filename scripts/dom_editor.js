@@ -13,7 +13,7 @@ function parseJobs() {
   if (jobs) {
     let parser = new DOMParser();
 
-    jobs.forEach(async j => {
+    jobs.forEach(async (j) => {
       j.classList.add("uprank-parsed");
       let detailsPage = await fetch(j.href);
       detailsPage = await detailsPage.text();
@@ -24,7 +24,7 @@ function parseJobs() {
       let client_activity = detailsPage
         .querySelector("section.up-card-section.row")
         .querySelectorAll("li");
-      client_activity.forEach(ca => {
+      client_activity.forEach((ca) => {
         let content = ca.innerText.trim();
         if (content.startsWith("Proposals")) {
           uprank.proposals = content.split(" ").at(-1);
@@ -40,7 +40,7 @@ function parseJobs() {
         if (content.startsWith("Interviewing")) {
           uprank.interviewing = content.split(" ").at(-1);
         }
-        if (content.startsWith("Hired")) {
+        if (content.startsWith("Hires")) {
           uprank.hired = content.split(" ").at(-1);
         }
       });
@@ -60,26 +60,31 @@ function parseJobs() {
             width: 200px;
             position: relative;
             background: white;
-            border: 2px solid var(--border-base-color);
-            height: 200px;
+            border: 2px solid green;
+            border-radius: 5px;
+            padding-left: 5px;
+            padding-top: 10px;
+            height: 175px;
             margin-right: -120px;
             margin-top: -205px;
+            font-family: "Helvetica";
+            z-index: 19000;
           "
         >
           <ul>
+            <li>Days Since Viewed: ${uprank.last_viewed_by}</li>  
             <li>Proposals: ${uprank.proposals}</li>
-            <li>Last Viewed By: ${uprank.last_viewed_by}</li>
             <li>Interviewing: ${uprank.interviewing}</li>
-            <li>Connect Cost: ${uprank.connect_info}</li>
             <li>Hired: ${"hired" in uprank ? uprank.hired : 0}</li>
+            <li>Connect Cost: ${uprank.connect_info}</li>
           </ul>
         </div>
         `
       );
-      let ranking = "medium";
+      let ranking = "good";
       let rankings = {
         good: {
-          rotate: 180,
+          rotate: 0,
           color: "green",
           mb: 3,
         },
@@ -89,7 +94,7 @@ function parseJobs() {
           mb: 3,
         },
         bad: {
-          rotate: 0,
+          rotate: 180,
           color: "#9b211b",
           mb: 0,
         },
@@ -100,10 +105,7 @@ function parseJobs() {
         color: ${rankings[ranking].color};
         margin-bottom: ${rankings[ranking].mb}px"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 14 14" role="img">
-          <path fill-rule="evenodd" d="M3.237 1.368h5.896v5.375c0 .185-.097.552-.2.757l-2.564 2.802c-.205.22-.317.508-.317.81v1.35c-.35-.274-.946-1.057-.215-2.974a1.2 1.2 0 00-1.115-1.624H1.54l1.697-6.496zM.15 8.948c.142.183.36.284.614.284H4.48c-1.194 3.422.965 4.492 1.22 4.605a1.946 1.946 0 001.629-.033.177.177 0 00.09-.152l.002-2.475s2.577-2.79 2.587-2.79h3.78c.116 0 .21-.078.21-.172V.172c0-.094-.095-.17-.21-.17L3.085 0C2.59 0 2.08.404 1.947.903L.032 8.243a.805.805 0 00.12.706z"></path>
-        </svg>
-      </div>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0.0 0.0 384.0 384.0" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10"><clipPath id="g1d3091c8d0f_0_0.0"><path d="m0 0l384.0 0l0 384.0l-384.0 0l0 -384.0z" clip-rule="nonzero"/></clipPath><g clip-path="url(#g1d3091c8d0f_0_0.0)"><path fill="#000000" fill-opacity="0.0" d="m0 0l384.0 0l0 384.0l-384.0 0z" fill-rule="evenodd"/><path fill="#000000" d="m0 358.07874l192.0 -332.15747l192.0 332.15747z" fill-rule="evenodd"/><path stroke="#000000" stroke-width="1.0" stroke-linejoin="round" stroke-linecap="butt" d="m0 358.07874l192.0 -332.15747l192.0 332.15747z" fill-rule="evenodd"/></g></svg>      </div>
       `;
       let trigger = htmlToElement(
         `
