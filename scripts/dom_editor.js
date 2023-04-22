@@ -11,9 +11,6 @@ async function calculateRanking(job) {
   let popup = await chrome.storage.sync.get("config");
   if (!chrome.runtime.error) {
     let { connects, hired, interview, lastViewed, proposal } = popup.config;
-    console.log(parseInt(connects));
-    console.log(job.connects);
-    console.log(job.connects > parseInt(connects));
     if (job.connects > parseInt(connects)) {
       bads++;
       warnings.push("Too many connects");
@@ -50,7 +47,7 @@ function createTooltipModal(j, warnings) {
     warningsList += `<li>${w}</li>`;
   });
   if (!warningsList.length) {
-    warningsList = "Nothing to be worried about!";
+    warningsList = "<li>Nothing to be worried about!</li>";
   }
 
   return htmlToElement(
@@ -59,21 +56,25 @@ function createTooltipModal(j, warnings) {
           id="info-${j.href}"
           style="
             display: none;
-            width: 200px;
+            width: 130px;
             position: relative;
             background: white;
             border: 2px solid green;
             border-radius: 5px;
             padding-left: 5px;
-            padding-top: 10px;
-            height: 175px;
-            margin-right: -120px;
-            margin-top: -205px;
-            font-family: "Helvetica";
-            z-index: 19000;
+            margin-right: -130px;
+            top: 50px;
+            margin-bottom: -40px;
+            font-family: Helvetica;
+            z-index: 1000;
           "
         >
-          <ul>
+          <ul 
+            style="padding-left: 0;
+            text-align: center;
+            padding-top: 10px;
+            list-style-type: none;"
+          >
             ${warningsList}
           </ul>
         </div>
@@ -194,12 +195,15 @@ async function parseJobs() {
       let result = await calculateRanking(uprank);
       let ranking = result.ranking;
       let warnings = result.warnings;
-      console.log({ ranking, warnings });
 
       let clickables = j.parentNode.parentNode.parentNode;
       let actionTiles = clickables.querySelector(".job-tile-actions");
       actionTiles.prepend(createTooltipTrigger(j, ranking));
       actionTiles.prepend(createTooltipModal(j, warnings));
+
+      let modal = document.getElementById(`info-${j.href}`);
+      modal.style.marginBottom =
+        parseInt(modal.style.marginBottom) * warnings.length + "px";
     });
   }
 }
