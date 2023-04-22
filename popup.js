@@ -1,17 +1,13 @@
 document.body.onload = function () {
   chrome.storage.sync.get("config", function (items) {
-    console.log(items);
     if (!chrome.runtime.error) {
-      console.log(items);
-      document.getElementById("proposal-count").innerText =
-        items.config.proposal;
-      document.getElementById("interview-count").innerText =
-        items.config.interview;
-      document.getElementById("hired-count").innerText = items.config.hired;
-      document.getElementById("last-viewed-count").innerText =
+      //   console.log(items);
+      document.getElementById("proposal-count").value = items.config.proposal;
+      document.getElementById("interview-count").value = items.config.interview;
+      document.getElementById("hired-count").value = items.config.hired;
+      document.getElementById("last-viewed-count").value =
         items.config.lastViewed;
-      document.getElementById("connects-count").innerText =
-        items.config.connects;
+      document.getElementById("connects-count").value = items.config.connects;
     }
   });
 };
@@ -22,7 +18,6 @@ document.getElementById("update-preferences").onclick = function () {
   var hired = document.getElementById("hired-count").value;
   var lastViewed = document.getElementById("last-viewed-count").value;
   var connects = document.getElementById("connects-count").value;
-  localStorage.setItem("donut", "hole");
   chrome.storage.sync.set(
     {
       config: {
@@ -39,6 +34,5 @@ document.getElementById("update-preferences").onclick = function () {
       }
     }
   );
-  console.log(proposal, interview, hired, lastViewed, connects);
   window.close();
 };
