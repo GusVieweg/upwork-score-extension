@@ -1,25 +1,49 @@
 body {
   width: 20rem;
+  border-radius: 10px;
+  text-align: center;
 }
 
-ul {
-  list-style-type: none;
-  padding-inline-start: 0;
-  margin: 1rem 0;
+#header-text {
+  font-family: "Helvetica Neue";
+  font-size: 20px;
+  color: green;
+  padding-top: 15px;
 }
 
-li {
-  padding: 0.25rem;
-}
-li:nth-child(odd) {
-  background: #80808030;
-}
-li:nth-child(even) {
-  background: #ffffff;
+#helper-text {
+  font-size: 12px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
-h3,
-p {
-  margin: 0;
+.type-text {
+  font-family: "Helvetica Neue";
+  font-size: 14px;
+  width: 10rem;
+  display: inline-flex;
+
+  margin-bottom: 40px;
 }
-  
+
+input {
+  width: 3rem;
+}
+
+#update-preferences {
+  border-radius: 10rem;
+  border-color: green;
+  border-style: none;
+  background-color: green;
+  color: white;
+  box-shadow: none;
+  padding: 10px;
+  margin: 10px;
+  width: 15rem;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#update-preferences:hover {
+  background-color: darkgreen;
+}

@@ -13,11 +13,13 @@
     {
       "js": ["scripts/dom_editor.js"],
       "matches": [
-        "https://www.upwork.com/nx/find-work/*"
+        "https://www.upwork.com/nx/find-work/*",
+        "https://www.upwork.com/*"
       ]
     }
   ],
   "action": {
     "default_popup": "popup.html"
-  }
+  },
+  "permissions": ["storage"]
 }
