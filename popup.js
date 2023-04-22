@@ -22,6 +22,7 @@ document.getElementById("update-preferences").onclick = function () {
   var hired = document.getElementById("hired-count").value;
   var lastViewed = document.getElementById("last-viewed-count").value;
   var connects = document.getElementById("connects-count").value;
+  localStorage.setItem("donut", "hole");
   chrome.storage.sync.set(
     {
       config: {

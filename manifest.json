@@ -19,7 +19,9 @@
     }
   ],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_title": "Extension Boilerplate",
+    "default_icon": "public/images/icon-128.png"
   },
   "permissions": ["storage"]
 }
