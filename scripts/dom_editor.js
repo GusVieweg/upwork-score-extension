@@ -33,6 +33,9 @@ async function calculateRanking(job) {
       warnings.push("Too many proposals");
     }
   }
+  if (bads == 0) {
+    return { ranking: "good", warnings: ["No worries! 😊"] };
+  }
   if (bads < 2) {
     return { ranking: "good", warnings: warnings };
   } else if (bads < 4) {
@@ -46,9 +49,6 @@ function createTooltipModal(j, warnings) {
   warnings.forEach(w => {
     warningsList += `<li>${w}</li>`;
   });
-  if (!warningsList.length) {
-    warningsList = "<li>Nothing to be worried about!</li>";
-  }
 
   return htmlToElement(
     `
@@ -202,8 +202,7 @@ async function parseJobs() {
       actionTiles.prepend(createTooltipModal(j, warnings));
 
       let modal = document.getElementById(`info-${j.href}`);
-      modal.style.marginBottom =
-        parseInt(modal.style.marginBottom) * warnings.length + "px";
+      modal.style.marginBottom = -45 * warnings.length + "px";
     });
   }
 }
